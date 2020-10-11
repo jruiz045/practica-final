@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Servicio que gestiona la identificación de usuarios
+ * Servicio que gestiona la el panel de administración
  *
  */
 
