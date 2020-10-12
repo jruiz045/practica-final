@@ -23,4 +23,18 @@ class AdminPanelManager {
     public function removeAppType(AppType $appType) : void {
         
     }
+    
+    /**
+     * Añade una característica de aplicación a un tipo de aplicación  
+     */
+    public function addAppFeature(AppFeature $appFeature, AppType $appType) : void {
+        
+    }
+    
+    /**
+     * Borra una característica de aplicación de un tipo de aplicación  
+     */
+    public function removeAppFeature(AppFeature $appFeature, AppType $appType) : void {
+        
+    }
 }
