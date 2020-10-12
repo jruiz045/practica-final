@@ -54,7 +54,7 @@ class ChiefProjectManager {
     /**
      * Camiar el estado del proyecto
     */
-    public function changeProjectStatus(Status $status, Project $project) {
+    public function changeProjectStatus(Status $status, Project $project) : void {
         
     }
 }
