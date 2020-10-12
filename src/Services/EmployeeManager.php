@@ -5,7 +5,7 @@
  *
  */
 
-class RolManager {
+class EmployeeManager {
     public function __construct() {
         
     }
