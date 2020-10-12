@@ -39,42 +39,42 @@ class AdminPanelManager {
     }
     
     /**
-     * Cemtraliza las operaciones de CRUD del administrador  
+     * Centraliza las operaciones de CRUD del administrador  
      */
     public function manageAdminRole(User $user, $action) {
         
     }
     
     /**
-     * Cemtraliza las operaciones de CRUD del comercial  
+     * Centraliza las operaciones de CRUD del comercial  
      */
     public function manageSalesRole(User $user, $action) {
         
     }
     
     /**
-     * Cemtraliza las operaciones de CRUD del jefe de proyecto  
+     * Centraliza las operaciones de CRUD del jefe de proyecto  
      */
     public function manageChiefProjectRole(User $user, $action) {
         
     }
     
     /**
-     * Cemtraliza las operaciones de CRUD del técnico  
+     * Centraliza las operaciones de CRUD del técnico  
      */
     public function manageTechnicianRole(User $user, $action) {
         
     }
     
     /**
-     * Cemtraliza las operaciones de CRUD del cliente  
+     * Centraliza las operaciones de CRUD del cliente  
      */
     public function manageClientRole(User $user, $action) {
         
     }
     
     /**
-     * Cemtraliza las operaciones de CRUD del solicitante  
+     * Centraliza las operaciones de CRUD del solicitante  
      */
     public function manageEmployeeRole(User $user, $action) {
         
