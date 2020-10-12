@@ -6,5 +6,21 @@
  */
 
 class AdminPanelManager {
-    //put your code here
+    public function __construct() {
+        
+    }
+    
+    /**
+     * Añade un tipo de aplicación  
+     */
+    public function addAppType(AppType $appType) : void {
+        
+    }
+    
+    /**
+     * Borra un tipo de aplicación  
+     */
+    public function removeAppType(AppType $appType) : void {
+        
+    }
 }
