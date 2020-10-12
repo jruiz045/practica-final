@@ -12,7 +12,7 @@ class LanguageManager {
     
     /**
      * Traduce la página al  
-     * idioma seleccionad'
+     * idioma seleccionado
      *
      * Devuelve el texto traducdo al idioma correspondiente
      */
