@@ -6,6 +6,10 @@
  */
 class EmailManager {
 
+    public function __construct() {
+        
+    }
+    
     /**
      * Envía un correo a los comerciales con la 
      * información de la nueva solicitud
