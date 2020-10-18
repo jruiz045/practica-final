@@ -41,7 +41,7 @@ class SalesPanelManager {
     /**
      * Mostrar los datos de un proyecto  
      */
-    public function viewProjectInfo(Project $project) {
+    public function viewProjectInfo(Project $project) : void {
         
     }
 }

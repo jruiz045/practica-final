@@ -12,7 +12,7 @@ class ChiefProjectManager {
     /**
      * Mostrar la lista de proyectos en marcha  
      */
-    public function viewWorkingProjetList() :void {
+    public function viewWorkingProjetList() : void {
         
     }
     
@@ -47,12 +47,12 @@ class ChiefProjectManager {
     /**
      * Intercambiar técnicos en una tarea
     */
-    public function swapTechnicianInTask(User $formerTechnician, User $newTechnician, Task $task) : void {
+    public function swapTechniciansInTask(User $formerTechnician, User $newTechnician, Task $task) : void {
         
     }
     
     /**
-     * Camiar el estado del proyecto
+     * Cambiar el estado del proyecto
     */
     public function changeProjectStatus(Status $status, Project $project) : void {
         

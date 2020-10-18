@@ -13,42 +13,42 @@ class EmployeeManager {
     /**
      * Carga al panel de administración del usuario  
      */
-    public function loadAdminPanel(User $user) {
+    public function loadAdminPanel(User $user) : void {
         
     }
     
     /**
      * Carga al panel de comercial del usuario  
      */
-    public function loadSalesPanel(User $user) {
+    public function loadSalesPanel(User $user) : void {
         
     }
     
     /**
-     * Dirige al usuario al panel de jefe de proyecto  
+     * Carga al usuario al panel de jefe de proyecto  
      */
-    public function loadChiefProjectPanel(User $user) {
+    public function loadChiefProjectPanel(User $user) : void {
         
     }
     
     /**
-     * Dirige al usuario al panel del técnico  
+     * Carga al usuario al panel del técnico  
      */
-    public function loadTechnicianPanel(User $user) {
+    public function loadTechnicianPanel(User $user) : void {
         
     }
     
     /**
-     * Dirige al usuario al panel del empleado  
+     * Carga al usuario al panel del empleado  
      */
-    public function loadEmployeePanel(User $user) {
+    public function loadEmployeePanel(User $user) : void {
         
     }
     
     /**
      * Dirige al usuario al panel del cliente (solicitante)  
      */
-    public function loadClientPanel(User $user) {
+    public function loadClientPanel(User $user) : void {
         
     }
     

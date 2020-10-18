@@ -11,72 +11,72 @@ class AdminPanelManager {
     }
     
     /**
-     * Añade un tipo de aplicación  
+     * Añade un tipo de aplicación en ka configuración
      */
     public function addAppType(AppType $appType) : void {
         
     }
     
     /**
-     * Borra un tipo de aplicación  
+     * Borra un tipo de aplicación de la configuración
      */
     public function removeAppType(AppType $appType) : void {
         
     }
     
     /**
-     * Añade una característica de aplicación a un tipo de aplicación  
+     * Añade una característica de aplicación a un tipo de aplicación en la configuración
      */
     public function addAppFeature(AppFeature $appFeature, AppType $appType) : void {
         
     }
     
     /**
-     * Borra una característica de aplicación de un tipo de aplicación  
+     * Borra una característica de aplicación de un tipo de aplicación en la configuración
      */
     public function removeAppFeature(AppFeature $appFeature, AppType $appType) : void {
         
     }
     
     /**
-     * Centraliza las operaciones de CRUD del administrador  
+     * Gestiona las operaciones de CRUD del administrador  
      */
-    public function manageAdminRole(User $user, $action) {
+    public function manageAdminRole(User $admin, $action) : void {
         
     }
     
     /**
-     * Centraliza las operaciones de CRUD del comercial  
+     * Gestiona las operaciones de CRUD del comercial  
      */
-    public function manageSalesRole(User $user, $action) {
+    public function manageSalesRole(User $sales, $action) : void {
         
     }
     
     /**
-     * Centraliza las operaciones de CRUD del jefe de proyecto  
+     * Hestiona las operaciones de CRUD del jefe de proyecto  
      */
-    public function manageChiefProjectRole(User $user, $action) {
+    public function manageChiefProjectRole(User $chiefProject, $action) : void {
         
     }
     
     /**
-     * Centraliza las operaciones de CRUD del técnico  
+     * Gestiona las operaciones de CRUD del técnico  
      */
-    public function manageTechnicianRole(User $user, $action) {
+    public function manageTechnicianRole(User $technician, $action) : void {
         
     }
     
     /**
-     * Centraliza las operaciones de CRUD del cliente  
+     * Gestiona las operaciones de CRUD del cliente  
      */
-    public function manageClientRole(User $user, $action) {
+    public function manageClientRole(User $client, $action) : void {
         
     }
     
     /**
-     * Centraliza las operaciones de CRUD del solicitante  
+     * Gestiona las operaciones de CRUD del solicitante  
      */
-    public function manageEmployeeRole(User $user, $action) {
+    public function manageEmployeeRole(User $employee, $action) : void {
         
     }
 }
