@@ -42,5 +42,38 @@ class EmailManager {
     public function enviarCorreosPresupuestoAprobado(SolicitudPresupuesto $solicitud): boolean {
         
     }
+    
+    /**
+     * Envía un correo al jefe de proyecto
+     * indicando que se ha completado la tarea
+     *
+     * Devuelve true si todo ha ido bien o false si 
+     * no se ha podido enviar el correo
+     */
+    public function enviarCorreosTareaTerminada(Task $task): boolean {
+        
+    }
+    
+    /**
+     * Envía un correo al técnico
+     * indicando que se ha asociado a un técnico una tarea
+     *
+     * Devuelve true si todo ha ido bien o false si 
+     * no se ha podido enviar el correo
+     */
+    public function enviarCorreosTecnicoAsociadoATarea(Task $task): boolean {
+        
+    }
+    
+    /**
+     * Envía un correo al técnico
+     * indicando que se ha asociado a un técnico una tarea
+     *
+     * Devuelve true si todo ha ido bien o false si 
+     * no se ha podido enviar el correo
+     */
+    public function enviarCorreosCambioEstadoProyecto(Project $project): boolean {
+        
+    }
 
 }
