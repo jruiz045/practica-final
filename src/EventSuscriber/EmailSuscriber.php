@@ -11,32 +11,28 @@ class EmailSuscriber implements EventSubscriberInterface {
     {
         $this->emailManager = $emailManager;
     }
-
     
     public static function getSubscribedEvents()
     {
-        // return the subscribed events, their methods and priorities
         return array('budget.requested' => 'onPresupuestoSolicitado',
                      'budget.accepted' => 'onPresupuestoAprobado');
     }
     
-    public function onPresupuestoSolicitado($event)
+    public function onPresupuestoSolicitado(BudgetRequestedEvent $event)
     {
         $budgetRequest = $event->getBudgetRequest();
-        $emailManager = $this->emailManager;
         
-        $emailManager->enviarCorreosSolicitudPresupuestoAComerciales($budgetRequest);
-        $emailManager->enviarCorreosSolicitudPresupuestoASolicitante($budgetRequest);
+        $this->emailManager->enviarCorreosSolicitudPresupuestoAComerciales($budgetRequest);
+        $this->emailManager->enviarCorreosSolicitudPresupuestoASolicitante($budgetRequest);
         
     }
 
-    public function onPresupuestoAprobado($event)
+    public function onPresupuestoAprobado(BudgetAccptedEvent $event)
     {
         $budgetRequest = $event->getBudgetRequest();
-        $emailManager = $this->emailManager;
         
-        $emailManager->enviarCorreosPresupuestoAprobadoSolicitante($budgetRequest);
-        $emailManager->enviarCorreosPresupuestoAprobadoJefesProyecto($budgetRequest);
+        $this->emailManager->enviarCorreosPresupuestoAprobadoSolicitante($budgetRequest);
+        $this->emailManager->enviarCorreosPresupuestoAprobadoJefesProyecto($budgetRequest);
     }
 
 }
