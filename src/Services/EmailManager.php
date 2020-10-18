@@ -39,7 +39,18 @@ class EmailManager {
      * Devuelve true si todo ha ido bien o false si 
      * no se ha podido enviar el correo
      */
-    public function enviarCorreosPresupuestoAprobado(SolicitudPresupuesto $solicitud): boolean {
+    public function enviarCorreosPresupuestoAprobadoSolicitante(SolicitudPresupuesto $solicitud): boolean {
+        
+    }
+    
+    /**
+     * Envía un correo al solicitante del presupuesto
+     * indicando que se ha aprobado el presupuesto
+     *
+     * Devuelve true si todo ha ido bien o false si 
+     * no se ha podido enviar el correo
+     */
+    public function enviarCorreosPresupuestoAprobadoJefesProyecto(SolicitudPresupuesto $solicitud): boolean {
         
     }
     
