@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8dadf749aa5ad1b5a1dc710e0cbbd836",
+    "content-hash": "8b346eadf9a104eff593134b4e63093b",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -3679,21 +3679,21 @@
         },
         {
             "name": "symfony/mailer",
-            "version": "v5.0.7",
+            "version": "v5.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mailer.git",
-                "reference": "e0a736fc8b6839f5e6428f6aa4685e5aa033208c"
+                "reference": "ae0579ff80c1f9b6db5a7a7053733b2568cb9001"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mailer/zipball/e0a736fc8b6839f5e6428f6aa4685e5aa033208c",
-                "reference": "e0a736fc8b6839f5e6428f6aa4685e5aa033208c",
+                "url": "https://api.github.com/repos/symfony/mailer/zipball/ae0579ff80c1f9b6db5a7a7053733b2568cb9001",
+                "reference": "ae0579ff80c1f9b6db5a7a7053733b2568cb9001",
                 "shasum": ""
             },
             "require": {
                 "egulias/email-validator": "^2.1.10",
-                "php": "^7.2.5",
+                "php": ">=7.2.5",
                 "psr/log": "~1.0",
                 "symfony/event-dispatcher": "^4.4|^5.0",
                 "symfony/mime": "^4.4|^5.0",
@@ -3742,7 +3742,21 @@
             ],
             "description": "Symfony Mailer Component",
             "homepage": "https://symfony.com",
-            "time": "2020-03-27T16:56:45+00:00"
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-07-15T10:53:08+00:00"
         },
         {
             "name": "symfony/mime",
@@ -6466,20 +6480,20 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v5.0.7",
+            "version": "v5.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "0fa03cfaf1155eedbef871eef1a64c427e624c56"
+                "reference": "c46b676a993cc437bafe6fe0f30f074857cde2a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/0fa03cfaf1155eedbef871eef1a64c427e624c56",
-                "reference": "0fa03cfaf1155eedbef871eef1a64c427e624c56",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/c46b676a993cc437bafe6fe0f30f074857cde2a6",
+                "reference": "c46b676a993cc437bafe6fe0f30f074857cde2a6",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5",
+                "php": ">=7.2.5",
                 "symfony/dom-crawler": "^4.4|^5.0"
             },
             "require-dev": {
@@ -6521,24 +6535,38 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2020-03-30T11:42:42+00:00"
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-06-12T09:22:24+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v5.0.7",
+            "version": "v5.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "5f8d5271303dad260692ba73dfa21777d38e124e"
+                "reference": "79c224cdbfae58d54b257a8c684ad445042c90f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/5f8d5271303dad260692ba73dfa21777d38e124e",
-                "reference": "5f8d5271303dad260692ba73dfa21777d38e124e",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/79c224cdbfae58d54b257a8c684ad445042c90f2",
+                "reference": "79c224cdbfae58d54b257a8c684ad445042c90f2",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5"
+                "php": ">=7.2.5"
             },
             "type": "library",
             "extra": {
@@ -6574,7 +6602,21 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2020-03-27T16:56:45+00:00"
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-05-20T17:38:26+00:00"
         },
         {
             "name": "symfony/debug-bundle",
