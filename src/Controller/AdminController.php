@@ -1,18 +1,25 @@
 <?php
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+//use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+
 /**
- * Require ROLE_ADMIN for *every* controller method in this class.
- *
- * @IsGranted("ROLE_ADMIN")
-*/
+ * @Route("/admin")
+ */
 
 class AdminController extends AbstractController
 {
+    /**
+     * @Route("/dashboard", name="admin_dashboard", methods={"GET","POST"})
+     */
     public function dashboard()
     {
-        //$this->denyAccessUnlessGranted('ROLE_ADMIN');
+        //$this->denyAccessUnlessGranted('ADMIN');
+        return new Response(
+            '<html><body>Admin Dashboard</body></html>'
+        );
     }
 }

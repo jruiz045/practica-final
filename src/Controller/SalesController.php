@@ -2,18 +2,25 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+//use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+
 /**
- * Require ROLE_SALES for *every* controller method in this class.
- *
- * @IsGranted("ROLE_SALES")
-*/
+ * @Route("/sales")
+ */
 
 class SalesController extends AbstractController
 {
+    
+    /**
+     * @Route("/dashboard", name="sales_dashboard", methods={"GET","POST"})
+     */
     public function dashboard()
     {
-        //$this->denyAccessUnlessGranted('ROLE_SALES');
+        return new Response(
+            '<html><body>Sales Dashboard</body></html>'
+        );
     }
 }

@@ -2,18 +2,25 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+//use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+
 /**
- * Require ROLE_CHIEF_PROJECT for *every* controller method in this class.
- *
- * @IsGranted("ROLE_CHIEF_PROJECT")
-*/
+ * @Route("/chief-project")
+ */
 
 class ChiefProjectController extends AbstractController
 {
+    
+    /**
+     * @Route("/dashboard", name="chiefproject_dashboard", methods={"GET","POST"})
+     */
     public function dashboard()
     {
-        //$this->denyAccessUnlessGranted('ROLE_CHIEF_PROJECT');
+        return new Response(
+            '<html><body>Chief Project Dashboard</body></html>'
+        );
     }
 }

@@ -2,18 +2,25 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+//use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+
 /**
- * Require ROLE_CLIENT for *every* controller method in this class.
- *
- * @IsGranted("ROLE_CLIENT")
-*/
+ * @Route("/client")
+ */
 
 class ClientController extends AbstractController
 {
+    
+    /**
+     * @Route("/dashboard", name="client_dashboard", methods={"GET","POST"})
+     */
     public function dashboard()
     {
-        //$this->denyAccessUnlessGranted('ROLE_CLIENT');
+        return new Response(
+            '<html><body>Client Dashboard</body></html>'
+        );
     }
 }

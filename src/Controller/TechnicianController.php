@@ -2,18 +2,25 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+//use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+
 /**
- * Require ROLE_TECHNICIAN for *every* controller method in this class.
- *
- * @IsGranted("ROLE_TECHNICIAN")
-*/
+ * @Route("/technician")
+ */
 
 class TechnicianController extends AbstractController
 {
+    
+    /**
+     * @Route("/dashboard", name="technician_dashboard", methods={"GET","POST"})
+     */
     public function dashboard()
     {
-        //$this->denyAccessUnlessGranted('ROLE_TECHNICIAN');
+        return new Response(
+            '<html><body>Yech Dashboard</body></html>'
+        );
     }
 }
