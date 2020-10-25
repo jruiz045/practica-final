@@ -11,7 +11,15 @@ class HomeControllerTest extends WebTestCase
     */
     public function testFieldMailExistsLogin()
     {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
         
+        $this->assertGreaterThan(
+                0,
+                $crawler->filter('input[type=email]')
+                ->first()
+                ->count()
+        );
     }
     
     /*
@@ -19,7 +27,15 @@ class HomeControllerTest extends WebTestCase
     */
     public function testFieldPasswordExistsLogin()
     {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
         
+        $this->assertGreaterThan(
+                0,
+                $crawler->filter('input[type=password]')
+                ->first()
+                ->count()
+        );
     }
     
     /*
@@ -27,7 +43,14 @@ class HomeControllerTest extends WebTestCase
     */
     public function testFIeldEnterExistsLogin() 
     {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
         
+        $this->assertSame(
+                'Sign in',
+                $crawler->filter('input[type=submit]')
+                ->text()
+        );
     }
     
     /*
@@ -36,7 +59,22 @@ class HomeControllerTest extends WebTestCase
     
     public function testEmptyFieldMailLogin() 
     {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
         
+        $form = $crawler->filter('input[type=submit]')->form();
+        
+        $client->submit($form, array(
+            'email' => '', 
+            'password'  => '123456')
+        );
+        
+        $this->assertSame(
+                //'Debes indicar el correo',
+                'Email could not be found.',
+                $crawler->filter('.alert-danger')
+                ->text()
+        );
     }
     
     /*
@@ -45,7 +83,22 @@ class HomeControllerTest extends WebTestCase
     
     public function testEmptyFieldPasswordLogin() 
     {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
         
+        $form = $crawler->filter('input[type=submit]')->form();
+        
+        $client->submit($form, array(
+            'email' => 'john@doe.es', 
+            'password'  => '')
+        );
+        
+        $this->assertSame(
+                //Debes indicar la contraseña,
+                'Credenciales no válidas.',
+                $crawler->filter('.alert-danger')
+                ->text()
+        );
     }
     
     /*
@@ -54,7 +107,22 @@ class HomeControllerTest extends WebTestCase
     
     public function testIncorrectDataAcess() 
     {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
         
+        $form = $crawler->filter('input[type=submit]')->form();
+        
+        $client->submit($form, array(
+            'email' => 'john@doe.es', 
+            'password'  => '111111')
+        );
+        
+        $this->assertSame(
+                //Debes indicar la contraseña,
+                'Credenciales no válidas.',
+                $crawler->filter('.alert-danger')
+                ->text()
+        );
     }
     
     /*
@@ -63,7 +131,15 @@ class HomeControllerTest extends WebTestCase
     
     public function testcorrectDataAccess() 
     {
-        
+        $client = static::createClient();
+
+        $userRepository = static::$container->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('admin@admin.es');
+
+        $client->loginUser($testUser);
+
+        $client->request('GET', '/dashboard');
+        $this->assertResponseIsSuccessful();
     }
     
     /*
@@ -71,7 +147,15 @@ class HomeControllerTest extends WebTestCase
     */
     public function testAdminAcess()
     {
-        
+        $client = static::createClient();
+
+        $userRepository = static::$container->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('admin@admin.es');
+
+        $client->loginUser($testUser);
+
+        $client->request('GET', '/admin/dashboard');
+        $this->assertResponseIsSuccessful();
     }
     
     /*
@@ -79,7 +163,15 @@ class HomeControllerTest extends WebTestCase
     */
     public function testSalesAcces()
     {
-        
+        $client = static::createClient();
+
+        $userRepository = static::$container->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('sales@sales.es');
+
+        $client->loginUser($testUser);
+
+        $client->request('GET', '/sales/dashboard');
+        $this->assertResponseIsSuccessful();
     }
     
     /*
@@ -87,7 +179,15 @@ class HomeControllerTest extends WebTestCase
     */
     public function testChiefProjectAccess()
     {
-        
+        $client = static::createClient();
+
+        $userRepository = static::$container->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('chief@chief.es');
+
+        $client->loginUser($testUser);
+
+        $client->request('GET', '/chief-project/dashboard');
+        $this->assertResponseIsSuccessful();
     }
     
     /*
@@ -95,7 +195,16 @@ class HomeControllerTest extends WebTestCase
     */
     public function testTechnicianAccess()
     {
-        
+        $client = static::createClient();
+
+        $userRepository = static::$container->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('techf@tech.es');
+
+        $client->loginUser($testUser);
+
+        // user is now logged in, so you can test protected resources
+        $client->request('GET', '/technical/dashboard');
+        $this->assertResponseIsSuccessful();
     }
     
     /*
@@ -103,6 +212,14 @@ class HomeControllerTest extends WebTestCase
     */
     public function testClientAccess()
     {
-        
+        $client = static::createClient();
+
+        $userRepository = static::$container->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('clientf@client.es');
+
+        $client->loginUser($testUser);
+
+        $client->request('GET', '/client/dashboard');
+        $this->assertResponseIsSuccessful();
     }
 }
