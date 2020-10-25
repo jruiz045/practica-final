@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  * @Route("/")
  */
 
-class DefaultController extends AbstractController
+class HomeController extends AbstractController
 {
     
     /**
@@ -22,7 +22,7 @@ class DefaultController extends AbstractController
             '<html><body>Homepage</body></html>'
         );
     }
-    
+   
     /**
      * @Route("/dashboard", name="dashboard")
     */
