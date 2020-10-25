@@ -13,18 +13,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DefaultController extends AbstractController
 {
-    /**
-     * @Route("/", name="default_index", methods={"GET"})
-     */
-    public function index(): Response
-    {
-        return new Response(
-            '<html><body>Default page</body></html>'
-        );
-    }
     
     /**
-     * @Route("/homepage", name="default_homepage", methods={"GET"})
+     * @Route("/", name="default_homepage", methods={"GET"})
      */
     public function homepage(): Response
     {
