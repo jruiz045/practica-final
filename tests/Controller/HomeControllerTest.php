@@ -96,7 +96,7 @@ class HomeControllerTest extends WebTestCase
         
         $this->assertSame(
                 //Debes indicar la contraseña,
-                'Credenciales no válidas.',
+                'Invalid credentials.',
                 $crawler->filter('p.alert-danger')
                 ->text()
         );
@@ -121,7 +121,7 @@ class HomeControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
         
         $this->assertSame(
-                'Credenciales no válidas.',
+                'Invalid credentials.',
                 $crawler->filter('.alert-danger')
                 ->text()
         );
