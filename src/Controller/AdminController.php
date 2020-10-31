@@ -19,7 +19,7 @@ class AdminController extends AbstractController
     {
         //$this->denyAccessUnlessGranted('ADMIN');
         return new Response(
-            '<html><body>Admin Dashboard</body></html>'
+            '<html><body><h1>Admin Dashboard</h1></body></html>'
         );
     }
 }

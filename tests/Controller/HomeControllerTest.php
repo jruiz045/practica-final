@@ -47,9 +47,10 @@ class HomeControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/login');
         
         $this->assertSame(
-                'Sign in',
-                $crawler->filter('input[type=submit]')
+                "Sign in",
+                $crawler->filter('button[type=submit]')
                 ->text()
+                
         );
     }
     
@@ -62,19 +63,18 @@ class HomeControllerTest extends WebTestCase
         $client = static::createClient();
         $crawler = $client->request('GET', '/login');
         
-        $form = $crawler->filter('input[type=submit]')->form();
-        
-        $client->submit($form, array(
-            'email' => '', 
-            'password'  => '123456')
+        $form = $crawler->filter('button[type=submit]')->form();
+        $crawler = $client->submit($form, array(
+          'password'  => '123456')
         );
+
+        $crawler = $client->followRedirect();
         
         $this->assertSame(
-                //'Debes indicar el correo',
-                'Email could not be found.',
-                $crawler->filter('.alert-danger')
-                ->text()
-        );
+                "Email could not be found.", 
+                $crawler->filter('p.alert-danger')
+                ->text());
+ 
     }
     
     /*
@@ -86,17 +86,18 @@ class HomeControllerTest extends WebTestCase
         $client = static::createClient();
         $crawler = $client->request('GET', '/login');
         
-        $form = $crawler->filter('input[type=submit]')->form();
+        $form = $crawler->filter('button[type=submit]')->form();
         
-        $client->submit($form, array(
-            'email' => 'john@doe.es', 
-            'password'  => '')
+        $crawler = $client->submit($form, array(
+          'email'  => 'admin@admin.es')
         );
+        
+        $crawler = $client->followRedirect();
         
         $this->assertSame(
                 //Debes indicar la contraseña,
                 'Credenciales no válidas.',
-                $crawler->filter('.alert-danger')
+                $crawler->filter('p.alert-danger')
                 ->text()
         );
     }
@@ -105,17 +106,19 @@ class HomeControllerTest extends WebTestCase
      * REQ-PUB-LOG-06
     */
     
-    public function testIncorrectDataAcess() 
+    public function testIncorrectDataAccess() 
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/login');
         
-        $form = $crawler->filter('input[type=submit]')->form();
+        $form = $crawler->filter('button[type=submit]')->form();
         
-        $client->submit($form, array(
-            'email' => 'john@doe.es', 
+        $crawler = $client->submit($form, array(
+            'email' => 'admin@admin.es', 
             'password'  => '111111')
         );
+        
+        $crawler = $client->followRedirect();
         
         $this->assertSame(
                 //Debes indicar la contraseña,
@@ -132,46 +135,61 @@ class HomeControllerTest extends WebTestCase
     public function testcorrectDataAccess() 
     {
         $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
+        
+        $form = $crawler->filter('button[type=submit]')->form();
+        
+        $crawler = $client->submit($form, array(
+            'email' => 'admin@admin.es', 
+            'password'  => '123456')
+        );
+        
+        //$crawler = $client->followRedirect();
+        
 
-        $userRepository = static::$container->get(UserRepository::class);
-        $testUser = $userRepository->findOneByEmail('admin@admin.es');
-
-        $client->loginUser($testUser);
-
-        $client->request('GET', '/dashboard');
-        $this->assertResponseIsSuccessful();
+        //$client->request('GET', '/dashboard');
+        //$this->assertResponseIsSuccessful();
+        $this->assertResponseRedirects('/dashboard');
     }
     
     /*
      * REQ-PUB-LOG-08
     */
-    public function testAdminAcess()
+    public function testAdminAccess()
     {
         $client = static::createClient();
+        $crawler = $client->request('GET', '/login');
+        
+        $form = $crawler->filter('button[type=submit]')->form();
+        
+        $crawler = $client->submit($form, array(
+            'email' => 'admin@admin.es', 
+            'password'  => '123456')
+        );
+        
+        $crawler = $client->followRedirect();
 
-        $userRepository = static::$container->get(UserRepository::class);
-        $testUser = $userRepository->findOneByEmail('admin@admin.es');
-
-        $client->loginUser($testUser);
-
-        $client->request('GET', '/admin/dashboard');
-        $this->assertResponseIsSuccessful();
+        $this->assertResponseRedirects('/admin/dashboard');
     }
     
     /*
      * REQ-PUB-LOG-09
     */
-    public function testSalesAcces()
-    {
+    public function testSalesAccess()
+    {   
         $client = static::createClient();
-
-        $userRepository = static::$container->get(UserRepository::class);
-        $testUser = $userRepository->findOneByEmail('sales@sales.es');
-
-        $client->loginUser($testUser);
-
-        $client->request('GET', '/sales/dashboard');
-        $this->assertResponseIsSuccessful();
+        $crawler = $client->request('GET', '/login');
+        
+        $form = $crawler->filter('button[type=submit]')->form();
+        
+        $crawler = $client->submit($form, array(
+            'email' => 'sales@sales.es', 
+            'password'  => '123456')
+        );
+        
+        $crawler = $client->followRedirect();
+        
+        $this->assertResponseRedirects('/sales/dashboard');
     }
     
     /*
@@ -180,46 +198,55 @@ class HomeControllerTest extends WebTestCase
     public function testChiefProjectAccess()
     {
         $client = static::createClient();
-
-        $userRepository = static::$container->get(UserRepository::class);
-        $testUser = $userRepository->findOneByEmail('chief@chief.es');
-
-        $client->loginUser($testUser);
-
-        $client->request('GET', '/chief-project/dashboard');
-        $this->assertResponseIsSuccessful();
+        $crawler = $client->request('GET', '/login');
+        
+        $form = $crawler->filter('button[type=submit]')->form();
+        
+        $crawler = $client->submit($form, array(
+            'email' => 'chief@chief.es', 
+            'password'  => '123456')
+        );
+        
+        $crawler = $client->followRedirect();
+        
+        $this->assertResponseRedirects('/chief-project/dashboard');
     }
     
     /*
-     * REQ-PUB-LOG-11a
+     * REQ-PUB-LOG-11
     */
     public function testTechnicianAccess()
     {
         $client = static::createClient();
-
-        $userRepository = static::$container->get(UserRepository::class);
-        $testUser = $userRepository->findOneByEmail('techf@tech.es');
-
-        $client->loginUser($testUser);
-
-        // user is now logged in, so you can test protected resources
-        $client->request('GET', '/technical/dashboard');
-        $this->assertResponseIsSuccessful();
+        $crawler = $client->request('GET', '/login');
+        
+        $form = $crawler->filter('button[type=submit]')->form();
+        
+        $crawler = $client->submit($form, array(
+            'email' => 'tech@tech.es', 
+            'password'  => '123456')
+        );
+        
+        $crawler = $client->followRedirect();
+        
+        $this->assertResponseRedirects('/technician/dashboard');
+        
     }
     
-    /*
-     * REQ-PUB-LOG-11b
-    */
     public function testClientAccess()
     {
         $client = static::createClient();
-
-        $userRepository = static::$container->get(UserRepository::class);
-        $testUser = $userRepository->findOneByEmail('clientf@client.es');
-
-        $client->loginUser($testUser);
-
-        $client->request('GET', '/client/dashboard');
-        $this->assertResponseIsSuccessful();
+        $crawler = $client->request('GET', '/login');
+        
+        $form = $crawler->filter('button[type=submit]')->form();
+        
+        $crawler = $client->submit($form, array(
+            'email' => 'client@client.es', 
+            'password'  => '123456')
+        );
+        
+        $crawler = $client->followRedirect();
+        
+        $this->assertResponseRedirects('/client/dashboard');
     }
 }
