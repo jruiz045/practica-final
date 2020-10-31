@@ -121,7 +121,6 @@ class HomeControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
         
         $this->assertSame(
-                //Debes indicar la contraseña,
                 'Credenciales no válidas.',
                 $crawler->filter('.alert-danger')
                 ->text()
@@ -144,11 +143,6 @@ class HomeControllerTest extends WebTestCase
             'password'  => '123456')
         );
         
-        //$crawler = $client->followRedirect();
-        
-
-        //$client->request('GET', '/dashboard');
-        //$this->assertResponseIsSuccessful();
         $this->assertResponseRedirects('/dashboard');
     }
     
