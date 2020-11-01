@@ -31,6 +31,17 @@ class Task
      */
     private $notes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="tasks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $projectId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tasks")
+     */
+    private $userId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +79,30 @@ class Task
     public function setNotes(string $notes): self
     {
         $this->notes = $notes;
+
+        return $this;
+    }
+
+    public function getProjectId(): ?Project
+    {
+        return $this->projectId;
+    }
+
+    public function setProjectId(?Project $projectId): self
+    {
+        $this->projectId = $projectId;
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->userId;
+    }
+
+    public function setUserId(?User $userId): self
+    {
+        $this->userId = $userId;
 
         return $this;
     }
