@@ -33,9 +33,15 @@ class App
      */
     private $features;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Budget", mappedBy="appId")
+     */
+    private $budgets;
+
     public function __construct()
     {
         $this->features = new ArrayCollection();
+        $this->budgets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -93,6 +99,34 @@ class App
             if ($feature->getAppId() === $this) {
                 $feature->setAppId(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Budget[]
+     */
+    public function getBudgets(): Collection
+    {
+        return $this->budgets;
+    }
+
+    public function addBudget(Budget $budget): self
+    {
+        if (!$this->budgets->contains($budget)) {
+            $this->budgets[] = $budget;
+            $budget->addAppId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBudget(Budget $budget): self
+    {
+        if ($this->budgets->contains($budget)) {
+            $this->budgets->removeElement($budget);
+            $budget->removeAppId($this);
         }
 
         return $this;
