@@ -53,6 +53,11 @@ class Budget
      */
     private $deliveryDate;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $finalPrice;
+
     public function __construct()
     {
         $this->appId = new ArrayCollection();
@@ -172,6 +177,18 @@ class Budget
     public function setDeliveryDate(?\DateTimeInterface $deliveryDate): self
     {
         $this->deliveryDate = $deliveryDate;
+
+        return $this;
+    }
+
+    public function getFinalPrice(): ?float
+    {
+        return $this->finalPrice;
+    }
+
+    public function setFinalPrice(?float $finalPrice): self
+    {
+        $this->finalPrice = $finalPrice;
 
         return $this;
     }
