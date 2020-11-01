@@ -48,6 +48,11 @@ class Budget
      */
     private $featureId;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $deliveryDate;
+
     public function __construct()
     {
         $this->appId = new ArrayCollection();
@@ -155,6 +160,18 @@ class Budget
         if ($this->featureId->contains($featureId)) {
             $this->featureId->removeElement($featureId);
         }
+
+        return $this;
+    }
+
+    public function getDeliveryDate(): ?\DateTimeInterface
+    {
+        return $this->deliveryDate;
+    }
+
+    public function setDeliveryDate(?\DateTimeInterface $deliveryDate): self
+    {
+        $this->deliveryDate = $deliveryDate;
 
         return $this;
     }
