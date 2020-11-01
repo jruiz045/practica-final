@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Budget{% endblock %}
+
+{% block body %}
+    <h1>Budget</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ budget.id }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ budget.price }}</td>
+            </tr>
+            <tr>
+                <th>CandidateName</th>
+                <td>{{ budget.candidateName }}</td>
+            </tr>
+            <tr>
+                <th>CandidateEmail</th>
+                <td>{{ budget.candidateEmail }}</td>
+            </tr>
+            <tr>
+                <th>CandidatePhone</th>
+                <td>{{ budget.candidatePhone }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('budget_index') }}">back to list</a>
+
+    <a href="{{ path('budget_edit', {'id': budget.id}) }}">edit</a>
+
+    {{ include('budget/_delete_form.html.twig') }}
+{% endblock %}
