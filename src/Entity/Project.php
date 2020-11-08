@@ -38,6 +38,18 @@ class Project
      */
     private $state;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="projects")
+     */
+    //Jefe de proyecto
+    private $user;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Budget", inversedBy="project", cascade={"persist", "remove"})
+     */
+    //Presupuesto asociado al proyecto
+    private $budget;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
@@ -111,6 +123,30 @@ class Project
     public function setState(?string $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getBudget(): ?Budget
+    {
+        return $this->budget;
+    }
+
+    public function setBudget(?Budget $budget): self
+    {
+        $this->budget = $budget;
 
         return $this;
     }

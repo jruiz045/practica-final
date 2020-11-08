@@ -7,7 +7,7 @@ class BudgetRequestedEvent extends Event {
     function __construct($budget) {
         $this->budget = $budget;
     }
-    function getBudhet() {
+    function getBudget() {
         return $this->budget;
     }
 }

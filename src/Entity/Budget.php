@@ -63,6 +63,18 @@ class Budget
      */
     private $state;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Project", mappedBy="budget", cascade={"persist", "remove"})
+     */
+    //Proyecto asociaso al aceptar una solicitud de presupuesto
+    private $project;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="budget")
+     */
+    //Solicitante del presupuesto
+    private $user;
+
     public function __construct()
     {
         $this->appId = new ArrayCollection();
@@ -206,6 +218,36 @@ class Budget
     public function setState(?string $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): self
+    {
+        $this->project = $project;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newBudget = null === $project ? null : $this;
+        if ($project->getBudget() !== $newBudget) {
+            $project->setBudget($newBudget);
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

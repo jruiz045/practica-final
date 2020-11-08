@@ -43,11 +43,27 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Task", mappedBy="userId")
      */
+    //Tareas del técnico
     private $tasks;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="user")
+     */
+    //Proyectos del Jefe de Proyectos
+    private $projects;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Budget", mappedBy="user")
+     */
+    //Presupuesto del solicitante
+    private $budget;
+    
+    
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+        $this->projects = new ArrayCollection();
+        $this->budget = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -165,6 +181,68 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($task->getUserId() === $this) {
                 $task->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects[] = $project;
+            $project->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projects->contains($project)) {
+            $this->projects->removeElement($project);
+            // set the owning side to null (unless already changed)
+            if ($project->getUser() === $this) {
+                $project->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Budget[]
+     */
+    public function getBudget(): Collection
+    {
+        return $this->budget;
+    }
+
+    public function addBudget(Budget $budget): self
+    {
+        if (!$this->budget->contains($budget)) {
+            $this->budget[] = $budget;
+            $budget->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBudget(Budget $budget): self
+    {
+        if ($this->budget->contains($budget)) {
+            $this->budget->removeElement($budget);
+            // set the owning side to null (unless already changed)
+            if ($budget->getUser() === $this) {
+                $budget->setUser(null);
             }
         }
 

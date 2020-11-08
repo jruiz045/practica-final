@@ -44,7 +44,7 @@ class EmailManager {
     }
     
     /**
-     * Envía un correo al solicitante del presupuesto
+     * Envía un correo al jefe de proyecto del presupuesto
      * indicando que se ha aprobado el presupuesto
      *
      * Devuelve true si todo ha ido bien o false si 
@@ -61,7 +61,7 @@ class EmailManager {
      * Devuelve true si todo ha ido bien o false si 
      * no se ha podido enviar el correo
      */
-    public function enviarCorreosTareaTerminada(Task $task): boolean {
+    public function enviarCorreoTareaTerminadaATecnico(Task $task): boolean {
         
     }
     
@@ -83,8 +83,46 @@ class EmailManager {
      * Devuelve true si todo ha ido bien o false si 
      * no se ha podido enviar el correo
      */
-    public function enviarCorreosCambioEstadoProyecto(Project $project): boolean {
+    public function enviarCorreosCambioAsignacionProyecto(Project $project): boolean {
         
+    }
+    
+    /**
+     * Envía un correo al jefe de proyecto
+     * indicando que ha cambiado el estado de un proyecto
+     *
+     * Devuelve true si todo ha ido bien o false si 
+     * no se ha podido enviar el correo
+     */
+    public function enviarCorreoCambioEstadoProyectoASolicitante(Project $project): boolean {
+        $budget = $project->getBudget();
+        $client = $budget->getUser();
+    }
+    
+    /**
+     * Envía un correos a los técnicos del proyecto
+     * indicando que ha cambiado el estado de un proyecto
+     *
+     * Devuelve true si todo ha ido bien o false si 
+     * no se ha podido enviar el correo
+     */
+    public function enviarCorreosCambioEstadoProyectoATecnicos(Project $project): boolean {
+        $task_list = $project->getTasks();
+        foreach ($task_list as $task) {
+            $technician = $task->getUser();
+        }
+    }
+    
+    /**
+     * Envía un correo al jefe de proyecto
+     * indicando que una tarea ha sido completada
+     *
+     * Devuelve true si todo ha ido bien o false si 
+     * no se ha podido enviar el correo
+     */
+    public function enviarCorreoTareaFinalizadaAJefeProyecto(Task $task): boolean {
+        $proyecto = $task->getProject();
+        $chiefProject = $proyecto->getUser();
     }
 
 }
