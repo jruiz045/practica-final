@@ -16,6 +16,7 @@ class ProjectSuscriber implements EventSubscriberInterface {
         $task_list = $project->getTasks();
         foreach($task_list as $task) {
             if($task->getState() != 'finished') {
+                //$translator->trans('No ha podido realizarse la acción porque quedan tareas por terminar');
                 $event->setBlocked(true, 'No ha podido realizarse la acción porque quedan tareas por terminar');
                 break;
             }
