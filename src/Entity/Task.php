@@ -42,6 +42,11 @@ class Task
      */
     private $userId;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $state;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class Task
     public function setUserId(?User $userId): self
     {
         $this->userId = $userId;
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(?string $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }

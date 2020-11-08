@@ -1,2 +1,62 @@
 framework:
-    workflows: null
+    workflows:
+        manage_budget:
+            type: 'state_machine'
+            marking_store:
+                type: method
+                property: state
+            supports:
+                - App\Entity\Budget
+            initial_marking: pending
+            places:
+                - pending
+                - accepted
+                - rejected
+            transitions:
+                accept:
+                    from: pending
+                    to: accepted
+                reject:
+                    from: pending
+                    to: rejected
+        manage_project:
+            type: 'state_machine'
+            marking_store:
+                type: method
+                property: state
+            supports:
+                - App\Entity\Project
+            initial_marking: approved
+            places:
+                - approved
+                - on_process
+                - finished
+            transitions:
+                start:
+                    from: approved
+                    to: on_process
+                finish:
+                    from: on_process
+                    to: finished
+        manage_task:
+            type: 'state_machine'
+            marking_store:
+                type: method
+                property: state
+            supports:
+                - App\Entity\Task
+            initial_marking: unassigned
+            places: 
+                - unassigned
+                - assigned
+                - finished
+            transitions:
+                assign:
+                    from: unassigned
+                    to: assigned
+                unassign: 
+                    from: assigned
+                    to: unassigned
+                finish:
+                    from: assigned
+                    to: finished
