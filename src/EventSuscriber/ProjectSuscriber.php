@@ -7,7 +7,7 @@ class ProjectSuscriber implements EventSubscriberInterface {
     
     public static function getSubscribedEvents()
     {
-        return array('workflow.manage_project.to_finished' => 'checkCompletedTasks');
+        return array('workflow.manage_project.to_finished' => array('checkCompletedTasks'));
     }
     
     public function checkCompletedTasks(GuardEvent $event)
