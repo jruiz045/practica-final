@@ -26,7 +26,7 @@ class EmailSuscriber implements EventSubscriberInterface {
         $budgetRequest = $event->getBudgetRequest();
         
         $this->emailManager->enviarCorreosSolicitudPresupuestoAComerciales($budgetRequest);
-        $this->emailManager->enviarCorreosSolicitudPresupuestoASolicitante($budgetRequest);
+        $this->emailManager->enviarCorreoSolicitudPresupuestoASolicitante($budgetRequest);
         
     }
 
@@ -34,7 +34,7 @@ class EmailSuscriber implements EventSubscriberInterface {
     {
         $budgetRequest = $event->getBudgetRequest();
         
-        $this->emailManager->enviarCorreosPresupuestoAprobadoSolicitante($budgetRequest);
+        $this->emailManager->enviarCorreoPresupuestoAprobadoSolicitante($budgetRequest);
         $this->emailManager->enviarCorreosPresupuestoAprobadoJefesProyecto($budgetRequest);
     }
     
@@ -49,7 +49,7 @@ class EmailSuscriber implements EventSubscriberInterface {
     public function onTaskFinished(Event $event)
     {
         $task = $event->getSubjet()->getTask();
-        $this->emailManager->enviarCorreoTareaFinalizadaAJefesProyecto($task);
+        $this->emailManager->enviarCorreosTareaFinalizadaAJefesProyecto($task);
     }
 
 }
