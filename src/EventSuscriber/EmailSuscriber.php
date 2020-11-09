@@ -49,7 +49,7 @@ class EmailSuscriber implements EventSubscriberInterface {
     public function onTaskFinished(Event $event)
     {
         $task = $event->getSubjet()->getTask();
-        $this->emailManager->enviarCorreoTareaFinalizadaAJefeProyecto($task);
+        $this->emailManager->enviarCorreoTareaFinalizadaAJefesProyecto($task);
     }
 
 }
