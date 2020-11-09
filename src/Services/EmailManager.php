@@ -4,6 +4,10 @@ use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use App\Repository\UserRepository;
+use App\Repository\AppRepository;
+use App\Repository\FeatureRepository;
+
 /**
  * Servicio que gestiona el envío de correo
  *
@@ -21,34 +25,33 @@ class EmailManager {
      * Devuelve true si todo ha ido bien o false si 
      * no se ha podido enviar el correo
      */
-    public function enviarCorreosSolicitudPresupuestoAComerciales(Budget $budget, UserRepository $userRepository): boolean {
+    public function enviarCorreosSolicitudPresupuestoAComerciales(Budget $budgetRequest, UserRepository $userRepository, AppRepository $appRepository, FeatureRepository $fetureRepository): boolean {
         
         $from_email = 'jaimeruizperez@gmail.com';
         
-        $role = 'ROLE_SALES';
-        $sales_user_list = $userRepository->findByRole($role);
+        $sales_user_list = $userRepository->findByRole('ROLE_SALES');
         
-        $client = $budget->getUser();
+        $client = $budgetRequest->getUser();
         
-        $appid_list = $budget->getAppId();
+        $appid_list = $budgetRequest->getAppId();
         $app_list_text = 'Your app list: ';
         $selected_apps = array();
         foreach($appid_list as $appid) {
-            $app = new App($appid); 
+            $app = $appRepository->find($appid); 
             $selected_apps[] = $app->getDescription();
         }
         $app_list_text .= implode(",", $selected_apps);
 
-        $featureid_list = $budget->getFeatureId();
+        $featureid_list = $budgetRequest->getFeatureId();
         $feature_list_text = 'Your feature list: ';
         $selected_features = array();
         foreach($featureid_list as $featureid) {
-            $feature = new Feature($featureid); 
+            $feature = $fetureRepository->find($featureid); 
             $selected_features[] = $feature->getDescription();
         }
         $feature_list_text .= implode(",", $selected_features);
         
-        $approximate_budget_amount = 'Budget amount: '.$budget->getPrice();
+        $approximate_budget_amount = 'Budget amount: '.$budgetRequest->getPrice();
         
         $transport = Transport::fromDsn('smtp://localhost');
         $mailer = new Mailer($transport);
@@ -57,7 +60,7 @@ class EmailManager {
             $email = (new Email())
                 ->from($from_email)
                 ->to($salesUser->getEmail())
-                ->subject('New Budget Request received: '. $budget->getId())
+                ->subject('New Budget Request received: '. $budgetRequest->getId())
                 ->html('<p>Username: '.$client->getName().'</p>'
                      . '<p>User email: '.$client->getEmail().'</p>'
                      . '<p>'.$app_list_text.'</p>'
@@ -80,31 +83,31 @@ class EmailManager {
      * Devuelve true si todo ha ido bien o false si 
      * no se ha podido enviar el correo
      */
-    public function enviarCorreoSolicitudPresupuestoASolicitante(Budget $budget): boolean {
+    public function enviarCorreoSolicitudPresupuestoASolicitante(Budget $budgetRequest, AppRepository $appRepository, FeatureRepository $fetureRepository): boolean {
         
         $from_email = 'jaimeruizperez@gmail.com';
         
-        $client = $budget->getUser();
+        $client = $budgetRequest->getUser();
         
-        $appid_list = $budget->getAppId();
+        $appid_list = $budgetRequest->getAppId();
         $app_list_text = 'Your app list: ';
         $selected_apps = array();
         foreach($appid_list as $appid) {
-            $app = new App($appid); 
+            $app = $appRepository->find($appid); 
             $selected_apps[] = $app->getDescription();
         }
         $app_list_text .= implode(",", $selected_apps);
 
-        $featureid_list = $budget->getFeatureId();
+        $featureid_list = $budgetRequest->getFeatureId();
         $feature_list_text = 'Your feature list: ';
         $selected_features = array();
         foreach($featureid_list as $featureid) {
-            $feature = new Feature($featureid); 
+            $feature = $fetureRepository->find($featureid); 
             $selected_features[] = $feature->getDescription();
         }
         $feature_list_text .= implode(",", $selected_features);
         
-        $approximate_budget_amount = 'Budget amount: '.$budget->getPrice();
+        $approximate_budget_amount = 'Budget amount: '.$budgetRequest->getPrice();
         
         $transport = Transport::fromDsn('smtp://localhost');
         $mailer = new Mailer($transport);
@@ -112,7 +115,7 @@ class EmailManager {
         $email = (new Email())
                 ->from($from_email)
                 ->to($client->getEmail())
-                ->subject('Budget Request: '. $budget->getId())
+                ->subject('Budget Request: '. $budgetRequest->getId())
                 ->html('<p>'.$app_list_text.'</p>'
                      . '<p>'.$feature_list_text.'</p>'
                      . '<p>'.$approximate_budget_amount.'</p>'
@@ -132,32 +135,32 @@ class EmailManager {
      * Devuelve true si todo ha ido bien o false si 
      * no se ha podido enviar el correo
      */
-    public function enviarCorreoPresupuestoAprobadoSolicitante(Budget $budget): boolean {
+    public function enviarCorreoPresupuestoAprobadoSolicitante(Budget $budgetRequest, AppRepository $appRepository, FeatureRepository $fetureRepository): boolean {
         $from_email = 'jaimeruizperez@gmail.com';
         
-        $client = $budget->getUser();
+        $client = $budgetRequest->getUser();
         
-        $appid_list = $budget->getAppId();
+        $appid_list = $budgetRequest->getAppId();
         $app_list_text = 'Your app list: ';
         $selected_apps = array();
         foreach($appid_list as $appid) {
-            $app = new App($appid); 
+            $app = $appRepository->find($appid); 
             $selected_apps[] = $app->getDescription();
         }
         $app_list_text .= implode(",", $selected_apps);
 
-        $featureid_list = $budget->getFeatureId();
+        $featureid_list = $budgetRequest->getFeatureId();
         $feature_list_text = 'Your feature list: ';
         $selected_features = array();
         foreach($featureid_list as $featureid) {
-            $feature = new Feature($featureid); 
+            $feature = $fetureRepository->find($featureid); 
             $selected_features[] = $feature->getDescription();
         }
         $feature_list_text .= implode(",", $selected_features);
         
-        $budget_amount = 'Budget amount: '.$budget->getFinalPrice();
+        $budget_amount = 'Budget amount: '.$budgetRequest->getFinalPrice();
         
-        $budgetAssociatedProject = $budget->getProject();
+        $budgetAssociatedProject = $budgetRequest->getProject();
         $project_link = 'project/show/'.hash('ripemd160', $budgetAssociatedProject->getId());
         
         $transport = Transport::fromDsn('smtp://localhost');
@@ -166,7 +169,7 @@ class EmailManager {
         $email = (new Email())
                 ->from($from_email)
                 ->to($client->getEmail())
-                ->subject('Budget Accepted: '. $budget->getId())
+                ->subject('Budget Accepted: '. $budgetRequest->getId())
                 ->html('<p>'.$app_list_text.'</p>'
                      . '<p>'.$feature_list_text.'</p>'
                      . '<p>'.$budget_amount.'</p>'
@@ -186,34 +189,33 @@ class EmailManager {
      * Devuelve true si todo ha ido bien o false si 
      * no se ha podido enviar el correo
      */
-    public function enviarCorreosPresupuestoAprobadoJefesProyecto(Budget $budget, UserRepository $userRepository): boolean {
+    public function enviarCorreosPresupuestoAprobadoJefesProyecto(Budget $budgetRequest, UserRepository $userRepository, AppRepository $appRepository, FeatureRepository $fetureRepository): boolean {
         
         $from_email = 'jaimeruizperez@gmail.com';
         
-        $appid_list = $budget->getAppId();
+        $appid_list = $budgetRequest->getAppId();
         $app_list_text = 'Your app list: ';
         $selected_apps = array();
         foreach($appid_list as $appid) {
-            $app = new App($appid); 
+            $app = $appRepository->find($appid);
             $selected_apps[] = $app->getDescription();
         }
         $app_list_text .= implode(",", $selected_apps);
 
-        $featureid_list = $budget->getFeatureId();
+        $featureid_list = $budgetRequest->getFeatureId();
         $feature_list_text = 'Your feature list: ';
         $selected_features = array();
         foreach($featureid_list as $featureid) {
-            $feature = new Feature($featureid); 
+            $feature = $fetureRepository->find($featureid); 
             $selected_features[] = $feature->getDescription();
         }
         $feature_list_text .= implode(",", $selected_features);
         
-        $budget_amount = 'Budget amount: '.$budget->getFinalPrice();
+        $budget_amount = 'Budget amount: '.$budgetRequest->getFinalPrice();
         
-        $delivery_date = 'Deadline: '.$budget->getDeliveryDate();
+        $delivery_date = 'Deadline: '.$budgetRequest->getDeliveryDate();
         
-        $role = 'ROLE_CHIEF_PROJECT';
-        $chief_project_user_list = $userRepository->findByRole($role);
+        $chief_project_user_list = $userRepository->findByRole('ROLE_CHIEF_PROJECT');
         
         $transport = Transport::fromDsn('smtp://localhost');
         $mailer = new Mailer($transport);
@@ -222,7 +224,7 @@ class EmailManager {
             $email = (new Email())
                 ->from($from_email)
                 ->to($chiefProject->getEmail())
-                ->subject('Budget Accepted: '. $budget->getId())
+                ->subject('Budget Accepted: '. $budgetRequest->getId())
                 ->html('<p>'.$app_list_text.'</p>'
                      . '<p>'.$feature_list_text.'</p>'
                      . '<p>'.$budget_amount.'</p>'
@@ -337,8 +339,7 @@ class EmailManager {
         
         $from_email = 'jaimeruizperez@gmail.com';
         
-        $role = 'ROLE_CHIEF_PROJECT';
-        $chief_project_user_list = $userRepository->findByRole($role);
+        $chief_project_user_list = $userRepository->findByRole('ROLE_CHIEF_PROJECT');
         
         $transport = Transport::fromDsn('smtp://localhost');
         $mailer = new Mailer($transport);
