@@ -6,8 +6,6 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use App\Repository\UserRepository;
-use App\Repository\AppRepository;
-use App\Repository\FeatureRepository;
 
 /**
  * Servicio que gestiona el envío de correo
@@ -127,7 +125,7 @@ class EmailManager {
         $subject = $translator->trans('Budget Accepted: %budgetid%', array('%budgetid%' => $budgetRequest->getId()));
         $message = '<p>'.$translator->trans('Your app list: %applist%', array('%applist%' => implode(",", $selected_apps))).'</p>'
                  . '<p>'.$translator->trans('Your feature list: %featurelist%', array('%featurelist%' => implode(",", $selected_features))).'</p>'
-                 . '<p>'.$translator->trans('Budget amount: %budgetprice%', array('%budgetprice%' => $budgetRequest->getPrice())).'</p>'
+                 . '<p>'.$translator->trans('Budget amount: %budgetfinalprice%', array('%budgetfinalprice%' => $budgetRequest->getFinalPrice())).'</p>'
                  . '<a href="'.$project_link.'">'.$translator->trans('Project Info').'</a>';
         
         $email = (new Email())
@@ -147,7 +145,7 @@ class EmailManager {
     }
     
     /**
-     * Envía un correo al jefe de proyecto del presupuesto
+     * Envía un correo a los jefes de proyecto
      * indicando que se ha aprobado el presupuesto
      *
      * Devuelve true si todo ha ido bien o false si 
@@ -191,7 +189,7 @@ class EmailManager {
     
     /**
      * Envía un correo al técnico
-     * indicando que se ha asociado a un técnico una tarea
+     * indicando que se ha asociado una tarea
      *
      * Devuelve true si todo ha ido bien o false si 
      * no se ha podido enviar el correo
@@ -222,7 +220,7 @@ class EmailManager {
     }
     
     /**
-     * Envía un correo al jefe de proyecto
+     * Envía un correo al solicitante
      * indicando que ha cambiado el estado de un proyecto
      *
      * Devuelve true si todo ha ido bien o false si 
@@ -236,7 +234,7 @@ class EmailManager {
         $from = 'admin@admin.es';
         $subject = $translator->trans('Project %projectid% changed to %projectstate%', array('%projectid%' => $project->getId(), '%projectstate%' => $project->getState()));
         $message = '<p>'.$translator->trans('The state of the project %projectid% changed to %projectstate%', array('%projectid%' => $project->getId(), '%projectstate%' => $project->getState())).'</p>'
-                 . '<p>'.$translator->trans('Project description: %projectdescription%', array('%taskdescription%' => $project->getDescription())).'</p>';
+                 . '<p>'.$translator->trans('Project description: %projectdescription%', array('%projectdescription%' => $project->getDescription())).'</p>';
         
         $email = (new Email())
                 ->from($from)
@@ -255,7 +253,7 @@ class EmailManager {
     }
     
     /**
-     * Envía un correos a los técnicos del proyecto
+     * Envía un correo a los técnicos del proyecto
      * indicando que ha cambiado el estado de un proyecto
      *
      * Devuelve true si todo ha ido bien o false si 
@@ -266,7 +264,7 @@ class EmailManager {
         $from = 'admin@admin.es';
         $subject = $translator->trans('Project %projectid% changed to %projectstate%', array('%projectid%' => $project->getId(), '%projectstate%' => $project->getState()));
         $message = '<p>'.$translator->trans('The state of the project %projectid% changed to %projectstate%', array('%projectid%' => $project->getId(), '%projectstate%' => $project->getState())).'</p>'
-                 . '<p>'.$translator->trans('Project description: %projectdescription%', array('%taskdescription%' => $project->getDescription())).'</p>';
+                 . '<p>'.$translator->trans('Project description: %projectdescription%', array('%projectdescription%' => $project->getDescription())).'</p>';
         $email = (new Email())
                 ->from($from)
                 ->subject($subject)
@@ -289,7 +287,7 @@ class EmailManager {
     }
     
     /**
-     * Envía un correo al jefe de proyecto
+     * Envía un correo a los jefes de proyecto
      * indicando que una tarea ha sido completada
      *
      * Devuelve true si todo ha ido bien o false si 
