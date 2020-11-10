@@ -26,15 +26,15 @@ class EmailManager {
      * Devuelve true si todo ha ido bien o false si 
      * no se ha podido enviar el correo
      */
-    public function enviarCorreosSolicitudPresupuestoAComerciales(Budget $budgetRequest, UserRepository $userRepository, AppRepository $appRepository, FeatureRepository $fetureRepository, TranslatorInterface $translator): boolean {
+    public function enviarCorreosSolicitudPresupuestoAComerciales(Budget $budgetRequest, UserRepository $userRepository, TranslatorInterface $translator): boolean {
         
         $client = $budgetRequest->getUser(); 
-        $app_id_list = $budgetRequest->getAppId();
-        $feature_id_list = $budgetRequest->getFeatureId();
+        $app_list = $budgetRequest->getApps();
+        $feature_list = $budgetRequest->getFeatures();
         $selected_apps = $selected_features = array();
         
-        foreach($app_id_list as $appid) { $selected_apps[] = $appRepository->find($appid)->getDescription(); }
-        foreach($feature_id_list as $featureid) { $selected_features[] = $fetureRepository->find($featureid)->getDescription(); }
+        foreach($app_list as $app) { $selected_apps[] = $app->getDescription(); }
+        foreach($feature_list as $feature) { $selected_features[] = $feature->getDescription(); }
         
         $from = 'admin@admin.es';
         $subject = $translator->trans('New Budget Request received: %budgetid%', array('%budgetid%' => $budgetRequest->getId()));
@@ -71,15 +71,15 @@ class EmailManager {
      * Devuelve true si todo ha ido bien o false si 
      * no se ha podido enviar el correo
      */
-    public function enviarCorreoSolicitudPresupuestoASolicitante(Budget $budgetRequest, AppRepository $appRepository, FeatureRepository $fetureRepository, TranslatorInterface $translator): boolean {
+    public function enviarCorreoSolicitudPresupuestoASolicitante(Budget $budgetRequest, TranslatorInterface $translator): boolean {
         
         $client = $budgetRequest->getUser();
-        $appid_list = $budgetRequest->getAppId();
-        $featureid_list = $budgetRequest->getFeatureId();
+        $app_list = $budgetRequest->getApps();
+        $feature_list = $budgetRequest->getFeatures();
         $selected_apps = $selected_features = array();
         
-        foreach($appid_list as $appid) { $selected_apps[] = $appRepository->find($appid)->getDescription(); }
-        foreach($featureid_list as $featureid) { $selected_features[] = $fetureRepository->find($featureid)->getDescription(); }
+        foreach($app_list as $app) { $selected_apps[] = $app->getDescription(); }
+        foreach($feature_list as $feature) { $selected_features[] = $feature->getDescription(); }
         
         $from = 'admin@admin.es';
         $subject = $translator->trans('Budget Request: %budgetid%', array('%budgetid%' => $budgetRequest->getId()));
@@ -111,15 +111,15 @@ class EmailManager {
      * Devuelve true si todo ha ido bien o false si 
      * no se ha podido enviar el correo
      */
-    public function enviarCorreoPresupuestoAprobadoSolicitante(Budget $budgetRequest, AppRepository $appRepository, FeatureRepository $fetureRepository, TranslatorInterface $translator): boolean {
+    public function enviarCorreoPresupuestoAprobadoSolicitante(Budget $budgetRequest, TranslatorInterface $translator): boolean {
         
         $client = $budgetRequest->getUser();
-        $appid_list = $budgetRequest->getAppId();
-        $featureid_list = $budgetRequest->getFeatureId();
+        $app_list = $budgetRequest->getApps();
+        $feature_list = $budgetRequest->getFeatures();
         $selected_apps = $selected_features = array();
-    
-        foreach($appid_list as $appid) { $selected_apps[] = $appRepository->find($appid)->getDescription(); }
-        foreach($featureid_list as $featureid) { $selected_features[] = $fetureRepository->find($featureid)->getDescription(); }
+        
+        foreach($app_list as $app) { $selected_apps[] = $app->getDescription(); }
+        foreach($feature_list as $feature) { $selected_features[] = $feature->getDescription(); }
          
         $project_link = 'project/show/'.hash('ripemd160', $budgetRequest->getProject()->getId());
         
@@ -153,14 +153,14 @@ class EmailManager {
      * Devuelve true si todo ha ido bien o false si 
      * no se ha podido enviar el correo
      */
-    public function enviarCorreosPresupuestoAprobadoJefesProyecto(Budget $budgetRequest, UserRepository $userRepository, AppRepository $appRepository, FeatureRepository $fetureRepository, TranslatorInterface $translator): boolean {
+    public function enviarCorreosPresupuestoAprobadoJefesProyecto(Budget $budgetRequest, UserRepository $userRepository, TranslatorInterface $translator): boolean {
         
-        $appid_list = $budgetRequest->getAppId();
-        $featureid_list = $budgetRequest->getFeatureId();
+        $app_list = $budgetRequest->getApps();
+        $feature_list = $budgetRequest->getFeatures();
         $selected_apps = $selected_features = array();
-    
-        foreach($appid_list as $appid) { $selected_apps[] = $appRepository->find($appid)->getDescription(); }
-        foreach($featureid_list as $featureid) { $selected_features[] = $fetureRepository->find($featureid)->getDescription(); }
+        
+        foreach($app_list as $app) { $selected_apps[] = $app->getDescription(); }
+        foreach($feature_list as $feature) { $selected_features[] = $feature->getDescription(); }
         
         $from = 'admin@admin.es';
         $subject = $translator->trans('Budget Accepted: %budgetid%', array('%budgetid%' => $budgetRequest->getId()));

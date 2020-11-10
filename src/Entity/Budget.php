@@ -38,15 +38,6 @@ class Budget
      */
     private $candidatePhone;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\App", inversedBy="budgets")
-     */
-    private $appId;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Feature", inversedBy="budgets")
-     */
-    private $featureId;
 
     /**
      * @ORM\Column(type="date", nullable=true)
@@ -75,11 +66,22 @@ class Budget
     //Solicitante del presupuesto
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\App", inversedBy="budgets")
+     */
+    private $apps;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Feature", inversedBy="budgets")
+     */
+    private $features;
+
     public function __construct()
     {
-        $this->appId = new ArrayCollection();
-        $this->featureId = new ArrayCollection();
+        $this->apps = new ArrayCollection();
+        $this->features = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -130,59 +132,6 @@ class Budget
     public function setCandidatePhone(string $candidatePhone): self
     {
         $this->candidatePhone = $candidatePhone;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|App[]
-     */
-    public function getAppId(): Collection
-    {
-        return $this->appId;
-    }
-
-    public function addAppId(App $appId): self
-    {
-        if (!$this->appId->contains($appId)) {
-            $this->appId[] = $appId;
-        }
-
-        return $this;
-    }
-
-    public function removeAppId(App $appId): self
-    {
-        if ($this->appId->contains($appId)) {
-            $this->appId->removeElement($appId);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Feature[]
-     */
-    public function getFeatureId(): Collection
-    {
-        return $this->featureId;
-    }
-
-    public function addFeatureId(Feature $featureId): self
-    {
-        if (!$this->featureId->contains($featureId)) {
-            $this->featureId[] = $featureId;
-        }
-
-        return $this;
-    }
-
-    public function removeFeatureId(Feature $featureId): self
-    {
-        if ($this->featureId->contains($featureId)) {
-            $this->featureId->removeElement($featureId);
-        }
-
         return $this;
     }
 
@@ -251,4 +200,58 @@ class Budget
 
         return $this;
     }
+
+    /**
+     * @return Collection|App[]
+     */
+    public function getApps(): Collection
+    {
+        return $this->apps;
+    }
+
+    public function addApp(App $app): self
+    {
+        if (!$this->apps->contains($app)) {
+            $this->apps[] = $app;
+        }
+
+        return $this;
+    }
+
+    public function removeApp(App $app): self
+    {
+        if ($this->apps->contains($app)) {
+            $this->apps->removeElement($app);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Feature[]
+     */
+    public function getFeatures(): Collection
+    {
+        return $this->features;
+    }
+
+    public function addFeature(Feature $feature): self
+    {
+        if (!$this->features->contains($feature)) {
+            $this->features[] = $feature;
+        }
+
+        return $this;
+    }
+
+    public function removeFeature(Feature $feature): self
+    {
+        if ($this->features->contains($feature)) {
+            $this->features->removeElement($feature);
+        }
+
+        return $this;
+    }
+
+
 }

@@ -35,7 +35,7 @@ class Feature
     private $appId;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Budget", mappedBy="featureId")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Budget", mappedBy="features")
      */
     private $budgets;
 
@@ -97,7 +97,7 @@ class Feature
     {
         if (!$this->budgets->contains($budget)) {
             $this->budgets[] = $budget;
-            $budget->addFeatureId($this);
+            $budget->addFeature($this);
         }
 
         return $this;
@@ -107,13 +107,14 @@ class Feature
     {
         if ($this->budgets->contains($budget)) {
             $this->budgets->removeElement($budget);
-            $budget->removeFeatureId($this);
+            $budget->removeFeature($this);
         }
 
         return $this;
     }
     
-    public function __toString(){
+    public function __toString()
+    {
         return $this->description;
     }
 }

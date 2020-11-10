@@ -34,7 +34,7 @@ class App
     private $features;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Budget", mappedBy="appId")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Budget", mappedBy="apps")
      */
     private $budgets;
 
@@ -116,7 +116,7 @@ class App
     {
         if (!$this->budgets->contains($budget)) {
             $this->budgets[] = $budget;
-            $budget->addAppId($this);
+            $budget->addApp($this);
         }
 
         return $this;
@@ -126,13 +126,14 @@ class App
     {
         if ($this->budgets->contains($budget)) {
             $this->budgets->removeElement($budget);
-            $budget->removeAppId($this);
+            $budget->removeApp($this);
         }
 
         return $this;
     }
     
-    public function __toString(){
+    public function __toString()
+    {
         return $this->description;
     }
 }
