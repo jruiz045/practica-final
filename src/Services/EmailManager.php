@@ -295,7 +295,6 @@ class EmailManager {
      */
     public function enviarCorreosTareaFinalizadaAJefesProyecto(Task $task, UserRepository $userRepository, TranslatorInterface $translator): boolean {
 
-        
         $from = 'admin@admin.es';
         $subject = $translator->trans('Task %taskid% finished', array('%taskid%' => $task->getId()));
         $message = '<p>'.$translator->trans('The task %taskid% has been finished', array('%taskid%' => $task->getId())).'</p>'
